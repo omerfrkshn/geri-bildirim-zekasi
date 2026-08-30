@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: api-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/geri_bildirim_zekasi
+    username: gbz_user
+    password: gbz_pass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    locations: filesystem:../db/migrations
+
+server:
+  port: 8080
