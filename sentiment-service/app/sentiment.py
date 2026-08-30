@@ -1,8 +1,14 @@
+import logging
 from functools import lru_cache
 
 from transformers import pipeline
 
+from app.claude_client import ikinci_gorus_al
+
+logger = logging.getLogger(__name__)
+
 MODEL_ADI = "savasy/bert-base-turkish-sentiment-cased"
+GUVEN_ESIGI = 0.7
 
 
 @lru_cache(maxsize=1)
@@ -13,4 +19,12 @@ def modeli_yukle():
 def analiz_et(metin: str) -> tuple[str, float]:
     analizci = modeli_yukle()
     sonuc = analizci(metin)[0]
-    return sonuc["label"].lower(), float(sonuc["score"])
+    duygu, guven = sonuc["label"].lower(), float(sonuc["score"])
+
+    if guven < GUVEN_ESIGI:
+        try:
+            duygu, guven = ikinci_gorus_al(metin)
+        except Exception as e:
+            logger.warning("Claude'a ikinci görüş alınamadı: %s", e)
+
+    return duygu, guven
