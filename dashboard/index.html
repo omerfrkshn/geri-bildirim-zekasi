@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geri Bildirim Zekası - Dashboard</title>
+    <meta name="description" content="Müşteri geri bildirimlerinin duygu analizi sonuçlarını gösteren canlı dashboard.">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <h1 class="sayfa-baslik">Geri Bildirim Zekası — Dashboard</h1>
+
+    <div class="panel-grid">
+        <div class="panel">
+            <h2 class="panel-baslik">Duygu Dağılımı</h2>
+            <div class="grafik-kutusu">
+                <canvas id="duygu-grafigi" role="img" aria-label="Duygu dağılımı grafiği"></canvas>
+            </div>
+        </div>
+        <div class="panel">
+            <h2 class="panel-baslik">Özet</h2>
+            <table class="geribildirim-tablosu" aria-label="Özet istatistikler">
+                <tbody id="ozet-tablosu"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-baslik">Geri Bildirimler</h2>
+        <table class="geribildirim-tablosu" aria-label="Geri bildirim listesi">
+            <thead>
+                <tr>
+                    <th scope="col">Tarih</th>
+                    <th scope="col">Metin</th>
+                    <th scope="col">Duygu</th>
+                    <th scope="col">Güven</th>
+                </tr>
+            </thead>
+            <tbody id="geribildirim-tablosu-govde"></tbody>
+        </table>
+        <p class="durum-metni" id="durum-metni"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

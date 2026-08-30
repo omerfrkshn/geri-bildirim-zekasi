@@ -1,0 +1,116 @@
+:root {
+    --renk-arkaplan: #0f172a;
+    --renk-yuzey: #1e293b;
+    --renk-kenarlik: #334155;
+    --renk-metin: #e2e8f0;
+    --renk-metin-soluk: #94a3b8;
+    --renk-pozitif: #22c55e;
+    --renk-negatif: #ef4444;
+    --renk-notr: #64748b;
+    --renk-vurgu: #6366f1;
+
+    --font-govde: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 2rem;
+    background: var(--renk-arkaplan);
+    color: var(--renk-metin);
+    font-family: var(--font-govde);
+}
+
+.sayfa-baslik {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 700px) {
+    .panel-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panel {
+    background: var(--renk-yuzey);
+    border: 1px solid var(--renk-kenarlik);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+}
+
+.grafik-kutusu {
+    position: relative;
+    height: 260px;
+}
+
+.panel-baslik {
+    font-size: 0.95rem;
+    color: var(--renk-metin-soluk);
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.geribildirim-tablosu {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.geribildirim-tablosu th,
+.geribildirim-tablosu td {
+    text-align: left;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid var(--renk-kenarlik);
+    vertical-align: top;
+}
+
+.geribildirim-tablosu th {
+    color: var(--renk-metin-soluk);
+    font-weight: 500;
+}
+
+.duygu-etiketi {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.duygu-etiketi--positive {
+    background: color-mix(in srgb, var(--renk-pozitif) 20%, transparent);
+    color: var(--renk-pozitif);
+}
+
+.duygu-etiketi--negative {
+    background: color-mix(in srgb, var(--renk-negatif) 20%, transparent);
+    color: var(--renk-negatif);
+}
+
+.duygu-etiketi--neutral {
+    background: color-mix(in srgb, var(--renk-notr) 30%, transparent);
+    color: var(--renk-metin);
+}
+
+.duygu-etiketi--bekliyor {
+    background: color-mix(in srgb, var(--renk-vurgu) 20%, transparent);
+    color: var(--renk-vurgu);
+}
+
+.durum-metni {
+    color: var(--renk-metin-soluk);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
