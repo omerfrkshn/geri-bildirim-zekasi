@@ -1,0 +1,3 @@
+ALTER TABLE geribildirimler
+    ADD COLUMN duygu VARCHAR(50),
+    ADD COLUMN guven DOUBLE PRECISION;

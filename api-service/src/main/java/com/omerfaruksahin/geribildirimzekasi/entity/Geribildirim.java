@@ -24,6 +24,10 @@ public class Geribildirim {
     @Column(name = "olusturma_tarihi", nullable = false)
     private LocalDateTime olusturmaTarihi;
 
+    private String duygu;
+
+    private Double guven;
+
     public Geribildirim(String metin) {
         this.metin = metin;
         this.olusturmaTarihi = LocalDateTime.now();
