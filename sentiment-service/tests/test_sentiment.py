@@ -14,6 +14,8 @@ def test_analiz_et_endpoint_modeli_cagirip_sonucu_dondurur(monkeypatch):
 
 
 def test_analiz_et_dusuk_guvende_claudeye_yonlenir(monkeypatch):
+    monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
+    monkeypatch.setattr(sentiment, "onbellege_yaz", lambda metin, duygu, guven: None)
     monkeypatch.setattr(
         sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "NEUTRAL", "score": 0.4}])
     )
@@ -26,6 +28,8 @@ def test_analiz_et_dusuk_guvende_claudeye_yonlenir(monkeypatch):
 
 
 def test_analiz_et_yuksek_guvende_claudeye_yonlenmez(monkeypatch):
+    monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
+    monkeypatch.setattr(sentiment, "onbellege_yaz", lambda metin, duygu, guven: None)
     monkeypatch.setattr(
         sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "POSITIVE", "score": 0.95}])
     )
@@ -42,6 +46,8 @@ def test_analiz_et_yuksek_guvende_claudeye_yonlenmez(monkeypatch):
 
 
 def test_analiz_et_claude_basarisiz_olursa_orijinal_sonuca_doner(monkeypatch):
+    monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
+    monkeypatch.setattr(sentiment, "onbellege_yaz", lambda metin, duygu, guven: None)
     monkeypatch.setattr(
         sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "NEUTRAL", "score": 0.4}])
     )
@@ -55,3 +61,36 @@ def test_analiz_et_claude_basarisiz_olursa_orijinal_sonuca_doner(monkeypatch):
 
     assert duygu == "neutral"
     assert guven == 0.4
+
+
+def test_analiz_et_onbellekte_varsa_modeli_hic_cagirmaz(monkeypatch):
+    monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: ("positive", 0.99))
+
+    def modeli_yukle_cagrilmamali():
+        raise AssertionError("Model onbellek varken cagrilmamali")
+
+    monkeypatch.setattr(sentiment, "modeli_yukle", modeli_yukle_cagrilmamali)
+
+    duygu, guven = sentiment.analiz_et("daha once analiz edilmis bir metin")
+
+    assert duygu == "positive"
+    assert guven == 0.99
+
+
+def test_analiz_et_yeni_sonucu_onbellege_yazar(monkeypatch):
+    monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
+    monkeypatch.setattr(
+        sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "POSITIVE", "score": 0.9}])
+    )
+    yazilan = {}
+
+    def sahte_yaz(metin, duygu, guven):
+        yazilan["metin"] = metin
+        yazilan["duygu"] = duygu
+        yazilan["guven"] = guven
+
+    monkeypatch.setattr(sentiment, "onbellege_yaz", sahte_yaz)
+
+    sentiment.analiz_et("yeni bir geri bildirim")
+
+    assert yazilan == {"metin": "yeni bir geri bildirim", "duygu": "positive", "guven": 0.9}
