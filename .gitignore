@@ -16,6 +16,9 @@ venv/
 .env
 *.env.local
 
+# Claude Code (özel çalışma talimatları, portfolyoda kalmasın)
+CLAUDE.md
+
 # IDE
 .idea/
 .vscode/
