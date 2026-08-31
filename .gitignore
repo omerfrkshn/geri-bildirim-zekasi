@@ -27,3 +27,6 @@ Thumbs.db
 
 # Docker
 postgres_data/
+
+# İndirilen üçüncü taraf değerlendirme verisi (ham hali repo'ya girmez)
+sentiment-service/evaluation/test_indirilen.csv

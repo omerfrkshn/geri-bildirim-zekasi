@@ -17,7 +17,7 @@ def test_analiz_et_dusuk_guvende_claudeye_yonlenir(monkeypatch):
     monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
     monkeypatch.setattr(sentiment, "onbellege_yaz", lambda metin, duygu, guven: None)
     monkeypatch.setattr(
-        sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "NEUTRAL", "score": 0.4}])
+        sentiment, "modeli_yukle", lambda: (lambda metin, **kwargs: [{"label": "NEUTRAL", "score": 0.4}])
     )
     monkeypatch.setattr(sentiment, "ikinci_gorus_al", lambda metin: ("negative", 0.88))
 
@@ -31,7 +31,7 @@ def test_analiz_et_yuksek_guvende_claudeye_yonlenmez(monkeypatch):
     monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
     monkeypatch.setattr(sentiment, "onbellege_yaz", lambda metin, duygu, guven: None)
     monkeypatch.setattr(
-        sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "POSITIVE", "score": 0.95}])
+        sentiment, "modeli_yukle", lambda: (lambda metin, **kwargs: [{"label": "POSITIVE", "score": 0.95}])
     )
 
     def claude_cagrilmamali(metin):
@@ -49,7 +49,7 @@ def test_analiz_et_claude_basarisiz_olursa_orijinal_sonuca_doner(monkeypatch):
     monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
     monkeypatch.setattr(sentiment, "onbellege_yaz", lambda metin, duygu, guven: None)
     monkeypatch.setattr(
-        sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "NEUTRAL", "score": 0.4}])
+        sentiment, "modeli_yukle", lambda: (lambda metin, **kwargs: [{"label": "NEUTRAL", "score": 0.4}])
     )
 
     def claude_patlar(metin):
@@ -80,7 +80,7 @@ def test_analiz_et_onbellekte_varsa_modeli_hic_cagirmaz(monkeypatch):
 def test_analiz_et_yeni_sonucu_onbellege_yazar(monkeypatch):
     monkeypatch.setattr(sentiment, "onbellekten_oku", lambda metin: None)
     monkeypatch.setattr(
-        sentiment, "modeli_yukle", lambda: (lambda metin: [{"label": "POSITIVE", "score": 0.9}])
+        sentiment, "modeli_yukle", lambda: (lambda metin, **kwargs: [{"label": "POSITIVE", "score": 0.9}])
     )
     yazilan = {}
 

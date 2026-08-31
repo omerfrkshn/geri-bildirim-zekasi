@@ -23,7 +23,7 @@ def analiz_et(metin: str) -> tuple[str, float]:
         return onbellek_sonucu
 
     analizci = modeli_yukle()
-    sonuc = analizci(metin)[0]
+    sonuc = analizci(metin, truncation=True, max_length=512)[0]
     duygu, guven = sonuc["label"].lower(), float(sonuc["score"])
 
     if guven < GUVEN_ESIGI:
