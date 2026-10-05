@@ -14,11 +14,17 @@ async function geribildirimleriGetir() {
     return cevap.json();
 }
 
+function kacisla(metin) {
+    const gecici = document.createElement("div");
+    gecici.textContent = metin;
+    return gecici.innerHTML;
+}
+
 function duyguEtiketiOlustur(duygu) {
-    if (!duygu) {
+    if (!duygu || !Object.hasOwn(DUYGU_ETIKETLERI, duygu)) {
         return '<span class="duygu-etiketi duygu-etiketi--bekliyor">bekliyor</span>';
     }
-    const gorunenAd = DUYGU_ETIKETLERI[duygu] ?? duygu;
+    const gorunenAd = DUYGU_ETIKETLERI[duygu];
     return `<span class="duygu-etiketi duygu-etiketi--${duygu}">${gorunenAd}</span>`;
 }
 
@@ -35,7 +41,7 @@ function tabloyuDoldur(geribildirimler) {
             (g) => `
             <tr>
                 <td>${tarihiFormatla(g.olusturmaTarihi)}</td>
-                <td>${g.metin}</td>
+                <td>${kacisla(g.metin)}</td>
                 <td>${duyguEtiketiOlustur(g.duygu)}</td>
                 <td>${g.guven != null ? (g.guven * 100).toFixed(1) + "%" : "-"}</td>
             </tr>`
