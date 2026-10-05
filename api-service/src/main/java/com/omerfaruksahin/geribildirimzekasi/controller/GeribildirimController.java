@@ -2,6 +2,7 @@ package com.omerfaruksahin.geribildirimzekasi.controller;
 
 import com.omerfaruksahin.geribildirimzekasi.entity.Geribildirim;
 import com.omerfaruksahin.geribildirimzekasi.service.GeribildirimService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class GeribildirimController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Geribildirim ekle(@RequestBody GeribildirimIstek istek) {
+    public Geribildirim ekle(@Valid @RequestBody GeribildirimIstek istek) {
         return geribildirimService.kaydet(istek.metin());
     }
 
